@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Générateur Netplan Avancé</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="floating-shapes">
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+  </div>
+
+  <div class="container">
+    <div class="form-section">
+      <div class="header">
+        <h1>🚀 Netplan Generator</h1>
+        <p>Configurateur réseau moderne et intuitif</p>
+      </div>
+
+      <form id="netplanForm">
+        <!-- Renderer -->
+        <div class="form-group">
+          <label for="renderer"><span class="icon">⚙️</span> Renderer réseau</label>
+          <div class="input-wrapper">
+            <select id="renderer">
+              <option value="NetworkManager">NetworkManager</option>
+              <option value="networkd">systemd-networkd</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Interface -->
+        <div class="form-group">
+          <label for="interfaceName"><span class="icon">🔌</span> Interface réseau</label>
+          <div class="input-wrapper">
+            <select id="interfaceName">
+              <option value="eth0">eth0 (Ethernet classique)</option>
+              <option value="ens33">ens33 (VMware/VirtualBox)</option>
+              <option value="eno1">eno1 (Interface embarquée)</option>
+              <option value="enp0s3">enp0s3 (PCI Ethernet)</option>
+              <option value="custom">🎯 Interface personnalisée</option>
+            </select>
+          </div>
+          <div class="toggle-section" id="customInterfaceSection">
+            <input id="customInterface" type="text" placeholder="Nom de votre interface (ex: wlan0)"/>
+          </div>
+        </div>
+
+        <!-- DHCP -->
+        <div class="form-group">
+          <label for="dhcpSelect"><span class="icon">🌐</span> Configuration IP</label>
+          <div class="input-wrapper">
+            <select id="dhcpSelect">
+              <option value="true">DHCP automatique</option>
+              <option value="false">IP statique (manuelle)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Static Config -->
+        <div class="toggle-section" id="staticConfig">
+          <div class="static-config">
+            <h3>Configuration IP statique</h3>
+
+            <div class="form-group">
+              <label for="ipAddress"><span class="icon">📍</span> Adresse IP (CIDR)</label>
+              <input type="text" id="ipAddress" placeholder="192.168.1.100/24"/>
+            </div>
+
+            <div class="form-group">
+              <label for="gateway"><span class="icon">🚪</span> Passerelle par défaut</label>
+              <input type="text" id="gateway" placeholder="192.168.1.1"/>
+            </div>
+
+            <div class="form-group">
+              <label for="dns"><span class="icon">🔍</span> Serveurs DNS</label>
+              <input type="text" id="dns" placeholder="8.8.8.8, 1.1.1.1, 8.8.4.4"/>
+            </div>
+
+            <div class="form-group">
+              <label for="enableSearchDomain"><span class="icon">🔎</span> Domaine de recherche</label>
+              <select id="enableSearchDomain">
+                <option value="no">Désactivé</option>
+                <option value="yes">Activé</option>
+              </select>
+            </div>
+
+            <div class="toggle-section" id="searchDomainBlock">
+              <input type="text" id="searchDomain" placeholder="exemple.local"/>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" onclick="generateNetplan()" class="generate-btn">
+          <span id="btnText">✨ Générer la configuration</span>
+          <span id="btnLoading" class="loading" style="display: none;"></span>
+        </button>
+      </form>
+    </div>
+
+    <div class="output-section">
+      <div class="output-header">
+        <h2>📄 Configuration générée</h2>
+        <button onclick="copyOutput()" class="copy-btn">
+          <span class="icon">📋</span> Copier
+        </button>
+      </div>
+      <textarea id="output" class="output-textarea" readonly placeholder="Votre configuration Netplan apparaîtra ici...\n\n🎯 Conseils d'utilisation :\n• Sauvegardez dans /etc/netplan/01-config.yaml\n• Testez avec : sudo netplan try\n• Appliquez avec : sudo netplan apply"></textarea>
+    </div>
+  </div>
+
+  <div id="notification" class="notification">
+    ✅ Configuration copiée dans le presse-papiers !
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+<footer>
+  Made with <span class="icon" style="color: #ef4444; animation: pulse 2s infinite;">❤️</span> by
+  <a href="https://linkedin.com/in/aylandhs" target="_blank">Aylan</a>
+</footer>
+</html>
