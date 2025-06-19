@@ -36,4 +36,16 @@ netplan-generator/
 1. Clone le dépôt ou télécharge le ZIP :
 
 ```bash
-git clone https://github.com/votreutilisateur/netplan-generator.git
+git clone https://github.com/Sayzx/netplan-conf-generator
+cd netplan-conf-generator
+```
+2. Ouvre le fichier `index.html` dans ton navigateur préféré.
+
+## 💡 Astuces
+Enregistre la configuration générée dans /etc/netplan/01-config.yaml
+
+Teste avec : sudo netplan try=
+Applique avec : sudo netplan apply
+
+## 👨‍💻 Auteur
+Made with ❤️ by Aylan
